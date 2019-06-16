@@ -8,7 +8,7 @@ library(anytime)
 
 #load dataset if not present env
 if (exists("dataset_raw") != TRUE) {
-  readRDS(file = "dataset_raw.rds")
+  dataset_raw <- readRDS(file = "dataset_raw.rds")
 }
 
 # apply parse function with specified data type, store in new data frame: dataset_clean
