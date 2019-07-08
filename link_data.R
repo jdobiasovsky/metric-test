@@ -10,13 +10,25 @@ generate_pairs <- function(pbl_id){
 }
 
 generate_groups <- function(from, to) {
-  group_list <- list()
+  # create list of overlapping groups
+  groups <- list()
   for (i in 1950:2020) {
     # index start from 1
-    group_list[[i-1949]] <- c(i-1, i, i+1)
+    groups[[i-1949]] <- c(i-1, i, i+1)
   }
-  names(group_list) <- c(1:ceiling(length(group_list)/3))
-  return(group_list)
+  names(groups) <- c(1:ceiling(length(groups)/3))
+  return(groups)
+}
+
+assign_group <- function(year, groups) {
+  # Generate vector of groups that object belongs to based on year
+  results <- numeric()
+  for (i in 1:length(groups)) {
+    if(year %in% groups[[i]]) {
+      results <- c(results, i)
+    }
+  }
+  return(results)
 }
 
 # each observation is assigned a group based on three year periods of year of publication
