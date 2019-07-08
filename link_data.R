@@ -9,7 +9,17 @@ generate_pairs <- function(pbl_id){
     return()
 }
 
-b# each observation is assigned a group based on three year periods of year of publication
+generate_groups <- function(from, to) {
+  group_list <- list()
+  for (i in 1950:2020) {
+    # index start from 1
+    group_list[[i-1949]] <- c(i-1, i, i+1)
+  }
+  names(group_list) <- c(1:ceiling(length(group_list)/3))
+  return(group_list)
+}
+
+# each observation is assigned a group based on three year periods of year of publication
 # TODO only publications with different PUBLICATION_SOURCE_CODE in same group?
 reclink_groups <- reclink_data %>% 
   mutate(GROUP_ID = group_indices(reclink_data, cut(reclink_data$YEAR, breaks = seq(1945,2020,3), labels = seq(1,25))))
@@ -25,5 +35,5 @@ grouped_obs_count <- reclink_groups %>% group_by(GROUP_ID, PUBLICATION_SOURCE_CO
 reclink_groups <- reclink_groups %>% 
   mutate(COMPARISON_PAIRS = for (id in reclink_groups$PUBLICATION){
     generate_pairs(id)
-    }) %>%
+    })
 # 
