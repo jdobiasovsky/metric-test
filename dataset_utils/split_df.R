@@ -1,7 +1,7 @@
 library(dplyr)
 #load dataset if not present env
 if (exists("dataset_clean") != TRUE) {
-  dataset_clean <- readRDS(file = "dataset_clean.rds")
+  dataset_clean <- readRDS(file = "./rds/dataset_clean.rds")
 }
 
 db_WOS <- dataset_clean_human %>%
