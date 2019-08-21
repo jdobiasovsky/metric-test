@@ -13,6 +13,6 @@ db_SCOPUS <- dataset_clean_human %>%
 db_CROSSREF <- dataset_clean_human %>%
   dplyr::filter(PUBLICATION_SOURCE_CODE == "CROSSREF_WS")
 
-saveRDS(dataset_clean_human, "./data/wos.rds")
-saveRDS(dataset_clean_human, "./data/scopus.rds")
-saveRDS(dataset_clean_human, "./data/crossref.rds")
+saveRDS(dataset_clean_human, "./rds/wos.rds")
+saveRDS(dataset_clean_human, "./rds/scopus.rds")
+saveRDS(dataset_clean_human, "./rds/crossref.rds")

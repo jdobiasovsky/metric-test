@@ -2,11 +2,11 @@ library(readr)
 library(dplyr)
 
 dataset_raw <- read_csv("data/export_updated.csv", col_types = cols(.default = "c")) #load all collumns as characters, will be parsed separately
-saveRDS(dataset_raw, "./data/dataset_raw.rds")
+saveRDS(dataset_raw, "./rds/dataset_raw.rds")
 
 #load dataset if not present env
 if (exists("dataset_raw") != TRUE) {
-  dataset_raw <- readRDS(file = "./data/dataset_raw.rds")
+  dataset_raw <- readRDS(file = "./rds/dataset_raw.rds")
 }
 
 # apply parse function with specified data type, store in new data frame: dataset_clean
@@ -25,8 +25,9 @@ dataset_clean_human <- dataset_raw %>%
   dplyr::mutate(WHEN_LAST_FAILURE=anytime::anydate(WHEN_LAST_FAILURE))
 
 # create human readable version before proceeding
-saveRDS(dataset_clean_human, "./data/dataset_clean_human.rds")
+saveRDS(dataset_clean_human, "./rds/dataset_clean_human.rds")
 
+# begin dataset processing before pair generation
 # strip punctiation
 reclink_data <- dataset_clean_human %>%
   dplyr::mutate(TITLE=gsub('[[:punct:]]| ','',dataset_clean_human$TITLE)) %>%
