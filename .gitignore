@@ -39,5 +39,6 @@ rsconnect/
 #user stuff
 metric-test.Rproj
 data/
+raw_data/
 rds/
 *.rds
