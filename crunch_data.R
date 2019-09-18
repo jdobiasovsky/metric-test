@@ -1,47 +1,48 @@
+# Record linkage functions demonstration for one-file serverside script refer to rlink.R
 library(stringdist)
 library(dplyr)
+library(tibble)
 
-
-crunch <- function(year, metric) {
-  # Data processing
-  # subset based on years
-  
+data_block <- function(year, type){
   year_start <- year-1
   year_end <- year+1
-  print(paste("Processing years in group //", year_start, "-", year_end, "//"))
+  group_filter <- c("PUBLICATION", "YEAR","TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU", "DOI_CODE")
   
-  grp1 <- reclink_SCOPUS %>%
-    filter(YEAR %in% (year_start:year_end)) %>% 
-    select(TITLE,ABSTRACT,SOURCE,PUBLISHER,PUBLISHER_LOCATION, CONFERENCE_NAME, AUTHORS, AUTHORS_CTU, DOI_CODE)
-  
-  grp2 <- reclink_WOS %>% 
-    filter(YEAR %in% (year_start:year_end)) %>% 
-    select(TITLE,ABSTRACT,SOURCE,PUBLISHER,PUBLISHER_LOCATION, CONFERENCE_NAME, AUTHORS, AUTHORS_CTU, DOI_CODE)
-  
-  
-  grp1 <- as.data.frame(grp1)
-  grp2 <- as.data.frame(grp2)
-  
-  
-  # test each row in grp1 against all rows from grp2
-  for (row in 1:nrow(grp1)){
-    # append to the dataframe with results
-    results_lev <- rbind(results_lev, mapply(stringdist, grp1[row,], grp2, metric))
+  if (type=='targets'){
+  return(
+    reclink_SCOPUS %>%
+      filter(YEAR == year) %>% 
+      select(group_filter)
+    )
   }
   
+  if (type=='candidates'){
+    return(
+      grp2 <- reclink_WOS %>% 
+        filter(YEAR %in% (year_start:year_end)) %>% 
+        select(group_filter)
+    )  
+  }
   
-  write.table(results_lev, file = paste("./data/results_", metric, ".csv", sep = ""), sep = ",", col.names = FALSE, append = TRUE)
 }
 
+generate_pairs <- function(targets, candidates, index){
+  # Generate table of record comparison candidates
+  # For example 10 targets with 20 possible candidates will generate a table of 200 records where each target is compared against all 20 records from candidates
+  return(
+    tibble(ID1 = rep(targets$PUBLICATION[index], each=nrow(candidates)),    # target ID repeated with total number of comparison operations 
+           YEAR1 = rep(targets$YEAR[index], each=nrow(candidates)),         # target YEAR repeated with total number of comparison operations
+           ID2 = rep(candidates$PUBLICATION, times=nrow(targets)),   # repeat sequence of candidate publication ID's times nubmer of targets  
+           YEAR2 = rep(candidates$YEAR, times=nrow(targets))         # repeat sequence of candidate publication YEAR's times number of target
+          )
+  )
+}
 
-# prepare results dataframe
-results_lev <- data.frame(matrix(ncol = 9, nrow = 0))
-colnames(results_lev) <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU", "DOI_CODE")
+crunch_lev <- function(year) {
+  print(paste("Processing candidates for group //", year, "//"))
+  grp1 = data_block(year, type = 'targets')
+  grp2 = data_block(year, type = 'candidates')
+  pairs = generate_pairs(targets = grp1, candidates = grp2, index = 1:nrow(grp1))
+  pairs
+}
 
-# saving this stuff
-x <- data.frame(a = I("a \" quote"), b = pi)
-write.table(x, file = "foo.csv", sep = ",", col.names = NA,
-            qmethod = "double")
-## and to read this file back into R one needs
-read.table("foo.csv", header = TRUE, sep = ",", row.names = 1)
-## NB: you do need to specify a separator if qmethod = "double".
