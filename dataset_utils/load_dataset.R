@@ -1,7 +1,7 @@
 # Dataset loading and pre-processing for use in Rstudio global env. For one-file serverside script refer to rlink.R
+# You might want to overwrite the paths used or create the neccessary directories if they're missing
 library(readr)
 library(dplyr)
-library(tibble)
 
 
 #All columns loaded as characters, parsing is done separately in dataset_clean_human since there are some modifications needed with dates
@@ -29,7 +29,7 @@ dataset_clean_human <- dataset_raw %>%
   mutate(WHEN_LAST_FAILURE=anytime::anydate(WHEN_LAST_FAILURE))
 
 # backup the human readable version before proceeding
-saveRDS(dataset_clean_human, "./rds/dataset_clean_human.rds")
+saveRDS(dataset_clean_human, "./data/rds_backups/dataset_clean_human.rds")
 
 # pre-process dataset for record linkage 
 # strip punctiation
@@ -51,3 +51,5 @@ reclink_data <- reclink_data %>%
   mutate(PUBLISHER=tolower(PUBLISHER)) %>%
   mutate(AUTHORS=tolower(AUTHORS)) %>%
   mutate(AUTHORS_CTU=tolower(AUTHORS_CTU))
+
+saveRDS(reclink_data, "./data/rds_backups/reclink_data.rds")
