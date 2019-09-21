@@ -2,11 +2,12 @@
 # You might want to overwrite the paths used or create the neccessary directories if they're missing
 library(readr)
 library(dplyr)
+library(anytime)
 
 
 #All columns loaded as characters, parsing is done separately in dataset_clean_human since there are some modifications needed with dates
-dataset_raw <- read_csv("data/export_final.csv", col_types = cols(.default = "c")) 
-saveRDS(dataset_raw, "./rds/dataset_raw.rds")
+dataset_raw <- read_csv("./raw_data/export_final.csv", col_types = cols(.default = "c")) 
+saveRDS(dataset_raw, "./data/rds_backups/dataset_raw.rds")
 
 #load dataset if not present env
 # if (exists("dataset_raw") != TRUE) {

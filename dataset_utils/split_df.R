@@ -1,7 +1,6 @@
 # Split dataset observation based on their source code to speed up reading and searching
 library(dplyr)
 
-
 #load dataset if not present env
 if (exists("reclink_data") != TRUE) {
   reclink_data <- readRDS(file = "./rds/reclink_data.rds")
@@ -16,6 +15,6 @@ reclink_SCOPUS <- reclink_data %>%
 reclink_CROSSREF <- reclink_data %>%
   filter(PUBLICATION_SOURCE_CODE == "CROSSREF_WS")
 
-saveRDS(reclink_WOS, "./rds/wos.rds")
-saveRDS(reclink_SCOPUS, "./rds/scopus.rds")
-saveRDS(reclink_CROSSREF, "./rds/crossref.rds")
+saveRDS(reclink_WOS, "./data/rds_backups/wos.rds")
+saveRDS(reclink_SCOPUS, "./data/rds_backups/scopus.rds")
+saveRDS(reclink_CROSSREF, "./data/rds_backups/crossref.rds")
