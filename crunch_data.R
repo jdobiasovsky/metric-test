@@ -26,23 +26,67 @@ data_block <- function(year, type){
   
 }
 
-generate_pairs <- function(targets, candidates, index){
-  # Generate table of record comparison candidates
-  # For example 10 targets with 20 possible candidates will generate a table of 200 records where each target is compared against all 20 records from candidates
+generate_pairs <- function(targets, candidates){
+  # Generate table of record comparison candidates. Each observation in the resulting table represents one comparison.
+  # For example 10 targets with 20 possible candidates will generate a table of 200 records where each target is compared against all 20 records from candidates.
   return(
-    tibble(ID1 = rep(targets$PUBLICATION[index], each=nrow(candidates)),    # target ID repeated with total number of comparison operations 
-           YEAR1 = rep(targets$YEAR[index], each=nrow(candidates)),         # target YEAR repeated with total number of comparison operations
-           ID2 = rep(candidates$PUBLICATION, times=nrow(targets)),   # repeat sequence of candidate publication ID's times nubmer of targets  
-           YEAR2 = rep(candidates$YEAR, times=nrow(targets))         # repeat sequence of candidate publication YEAR's times number of target
-          )
+    tibble(
+      # Each target from sequence is repeated by total number of candidates. 
+      ID1 = rep(targets$PUBLICATION, each=nrow(candidates)),
+      YEAR1 = rep(targets$YEAR, each=nrow(candidates)),
+      DOI1 = rep(targets$DOI_CODE, each=nrow(candidates)),
+      # Repeat the sequence of candidates times total number of targets
+      ID2 = rep(candidates$PUBLICATION, times=nrow(targets)),
+      YEAR2 = rep(candidates$YEAR, times=nrow(targets)),
+      DOI2 = rep(candidates$DOI_CODE, times=nrow(targets))
+    )
   )
 }
 
-crunch_lev <- function(year) {
+
+
+
+crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
+  # Calculate string distances between two data blocks
+
   print(paste("Processing candidates for group //", year, "//"))
-  grp1 = data_block(year, type = 'targets')
-  grp2 = data_block(year, type = 'candidates')
-  pairs = generate_pairs(targets = grp1, candidates = grp2, index = 1:nrow(grp1))
-  pairs
+  
+  # Split SCOPUS data to block with given year
+  grp1 <- data_block(year, type = 'targets')
+  # Second data block contains records in range (year-1:year+1)
+  grp2 <- data_block(year, type = 'candidates')
+  
+  # Generate pair identification and info
+  results <- generate_pairs(targets = grp1, candidates = grp2)
+  
+  # Set columns for string distance measurement
+  group_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
+  
+  # Calculate total number of operations
+  print(paste("Operations per column: ", nrow(results)))
+  print(paste("Total number of operations: ", nrow(results)*length(group_filter)))
+  
+  # Exit if dry run is toggled on, else continue
+  if (dryRun == TRUE) {
+    return(results)
+  }
+  
+  if (stringLength == TRUE) {
+    for(colname in group_filter) {
+      results[,paste(colname, "_len")] <- nchar(unlist(grp1[,colname], use.names = FALSE))
+    }
+  }
+  
+  # Calculate string distances columnwise
+  for (colname in group_filter)
+    results[,colname] <- stringdist(a = unlist(rep(grp1[,colname], each=nrow(grp2)), use.names = FALSE),
+                                    b = unlist(rep(grp2[,colname], times=nrow(grp1)), use.names = FALSE),
+                                    method = metric
+                                    )
+  
+  write.csv(results, file = paste("./results/", "lv", year))
+  return(results)
+
 }
+
 
