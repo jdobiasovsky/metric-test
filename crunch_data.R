@@ -6,7 +6,7 @@ library(tibble)
 data_block <- function(year, type){
   year_start <- year-1
   year_end <- year+1
-  group_filter <- c("PUBLICATION", "YEAR","TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU", "DOI_CODE")
+  group_filter <- c("PUBLICATION","YEAR", "DOI_CODE", "TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
   
   if (type=='targets'){
   return(
@@ -48,16 +48,25 @@ generate_pairs <- function(targets, candidates){
 
 crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   # Calculate string distances between two data blocks
-
+  if (length(year) > 1){
+    stop("Argument 'year' must be a single number")
+  }
   print(paste("Processing candidates for group //", year, "//"))
   
   # Split SCOPUS data to block with given year
   grp1 <- data_block(year, type = 'targets')
+  
   # Second data block contains records in range (year-1:year+1)
   grp2 <- data_block(year, type = 'candidates')
   
   # Generate pair identification and info
   results <- generate_pairs(targets = grp1, candidates = grp2)
+  
+  if (nrow(results) == 0){
+    print("No comparisons found")
+    write.csv(results, file = paste("./results/", metric, year, ".csv", sep = ""))
+    return()
+  }
   
   # Set columns for string distance measurement
   group_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
@@ -73,7 +82,7 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   
   if (stringLength == TRUE) {
     for(colname in group_filter) {
-      results[,paste(colname, "_len")] <- nchar(unlist(grp1[,colname], use.names = FALSE))
+      results[,paste(colname, "_LEN",sep = "")] <- nchar(unlist(grp1[,colname], use.names = FALSE))
     }
   }
   
@@ -83,10 +92,22 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
                                     b = unlist(rep(grp2[,colname], times=nrow(grp1)), use.names = FALSE),
                                     method = metric
                                     )
-  
-  write.csv(results, file = paste("./results/", "lv", year))
-  return(results)
-
+  print("Done... writing results.")
+  write.csv(results, file = paste("./results/", metric, year,".csv", sep = ""))
+  #return(glimpse(results))
 }
 
+results_to_df <- function(prefix){
+  # load all .csv results in ./results forlder with given prefix into single data frame
+  fileList <- list.files("./results/", pattern=paste(prefix,".*.csv",sep = ""))
+  fileList <- paste("./results/", fileList, sep = "")
+  
+  # call rbind on each element of list created by lapply(fileList,read.csv)
+  results_df <- do.call(rbind,lapply(fileList,read.csv))
+  
+  # convert final data frame into tibble
+  return(tibble(results_df))
 
+}
+  
+  
