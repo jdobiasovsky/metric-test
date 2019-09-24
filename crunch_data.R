@@ -2,6 +2,7 @@
 library(stringdist)
 library(dplyr)
 library(tibble)
+library(readr)
 
 data_block <- function(year, type){
   year_start <- year-1
@@ -63,9 +64,9 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   results <- generate_pairs(targets = grp1, candidates = grp2)
   
   if (nrow(results) == 0){
-    print("No comparisons found")
+    
     write.csv(results, file = paste("./results/", metric, year, ".csv", sep = ""))
-    return()
+    return(c("No comparisons found"))
   }
   
   # Set columns for string distance measurement
