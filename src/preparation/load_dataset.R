@@ -1,4 +1,4 @@
-# Dataset loading and pre-processing for use in Rstudio global env. For one-file serverside script refer to rlink.R
+# Dataset loading and pre-processing
 # You might want to overwrite the paths used or create the neccessary directories if they're missing
 library(readr)
 library(dplyr)
@@ -48,6 +48,7 @@ reclink_data <- dataset_clean_human %>%
 reclink_data <- reclink_data %>%
   mutate(TITLE=tolower(TITLE)) %>%
   mutate(ABSTRACT=tolower(ABSTRACT)) %>%
+  mutate(DOI_CODE=tolower(DOI_CODE)) %>%
   mutate(SOURCE=tolower(SOURCE)) %>%
   mutate(PUBLISHER=tolower(PUBLISHER)) %>%
   mutate(AUTHORS=tolower(AUTHORS)) %>%
