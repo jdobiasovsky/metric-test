@@ -3,7 +3,7 @@ library(dplyr)
 
 #load dataset if not present env
 if (exists("reclink_data") != TRUE) {
-  reclink_data <- readRDS(file = "./rds/reclink_data.rds")
+  reclink_data <- readRDS(file = "./data/rds_backups/reclink_data.rds")
 }
 
 reclink_WOS <- reclink_data %>%

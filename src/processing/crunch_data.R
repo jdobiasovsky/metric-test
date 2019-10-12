@@ -83,32 +83,19 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   
   if (stringLength == TRUE) {
     for(colname in group_filter) {
+      # TODO calculate distances of both grp1 and grp2 via TITLE_LEN1 & TITLE_LEN2
       results[,paste(colname, "_LEN",sep = "")] <- nchar(unlist(grp1[,colname], use.names = FALSE))
     }
   }
   
   # Calculate string distances columnwise
   for (colname in group_filter)
+    
     results[,colname] <- stringdist(a = unlist(rep(grp1[,colname], each=nrow(grp2)), use.names = FALSE),
                                     b = unlist(rep(grp2[,colname], times=nrow(grp1)), use.names = FALSE),
                                     method = metric
                                     )
   print("Done... writing results.")
-  write.csv(results, file = paste("./results/", metric, year,".csv", sep = ""))
+  write.csv(results, file = paste("./data/processed/", metric, year,".csv", sep = ""))
   #return(glimpse(results))
 }
-
-results_to_df <- function(prefix){
-  # load all .csv results in ./results forlder with given prefix into single data frame
-  fileList <- list.files("./results/", pattern=paste(prefix,".*.csv",sep = ""))
-  fileList <- paste("./results/", fileList, sep = "")
-  
-  # call rbind on each element of list created by lapply(fileList,read.csv)
-  results_df <- do.call(rbind,lapply(fileList,read.csv))
-  
-  # convert final data frame into tibble
-  return(tibble(results_df))
-
-}
-  
-  
