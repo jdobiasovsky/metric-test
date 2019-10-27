@@ -26,11 +26,11 @@ standardize <- function(input, type){
     data <- data %>% select(X1,ID1,YEAR1,DOI1,ID2,YEAR2,DOI2, paste(column_filter,"_STD", sep = ""))
     # if either DOI is missing, save into validation dataset
     write.csv(data %>% filter(is.na(DOI1) |  is.na(DOI2)),
-              file = paste("./data/processed_standardised_validation", basename(input), sep = ""), 
+              file = paste("./data/processed_standardised_validation/", basename(input), sep = ""), 
               row.names = FALSE)
     # if both compared publications contain DOI save into training dataset
     write.csv(data %>% filter(!is.na(DOI1) & !is.na(DOI2)),
-              file = paste("./data/processed_standardised_training", basename(input), sep = ""), 
+              file = paste("./data/processed_standardised_training/", basename(input), sep = ""), 
               row.names = FALSE)
   }
 }
