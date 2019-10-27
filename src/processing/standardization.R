@@ -7,14 +7,12 @@ lv_stand <- function(lv, lv_max){
   return((lv_max - lv)/lv_max)
   }
 
-
 standardize <- function(input, type){
   if (type == 'lv'){
     data <- read_csv(input, 
                      col_types = cols(.default = col_double(),
                                       DOI1 = col_character(),
-                                      DOI2 = col_character()
-                                      ),
+                                      DOI2 = col_character()),
                      na = "NA")
     
     column_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
