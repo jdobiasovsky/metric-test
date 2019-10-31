@@ -1,6 +1,6 @@
 # Convenience script that loads dataset and performs record linkage for all 5 metrics one after another
 source("src/preparation/load_dataset.R", echo = TRUE)
-source("src/preparation/split_dataset.R", echo = TRUE)
+source("src/preparation/split_df.R", echo = TRUE)
 rm(dataset_clean_human, dataset_raw, reclink_data, reclink_CROSSREF, envir = .GlobalEnv)
 source("src/processing/crunch_data.R")
 
