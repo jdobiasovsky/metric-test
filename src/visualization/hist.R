@@ -42,3 +42,30 @@ view_spread_density <- function(input){
       scale_y_sqrt()
     )
 }
+
+
+### USE stat_ecdf() for distribution
+view_spread_ecdf <- function(input){
+  data <- read_csv(input, 
+                   col_types = cols(.default = col_double(),
+                                    DOI1 = col_character(),
+                                    DOI2 = col_character()),
+                   na = "NA")
+  
+  tp <- data %>% filter(DOI1==DOI2)
+  tn <- data %>% filter(DOI1!=DOI2)
+  
+  ggplot() + 
+    stat_ecdf(aes(tp$TITLE), color = "green", na.rm = TRUE) + 
+    stat_ecdf(aes(tn$TITLE), color= "red", na.rm = TRUE) + 
+    labs(title="Empirical Cumulative Density Function",
+         y = "F(Distance)", x="Distance")
+  
+  # alternative with area fill 
+  # ggplot() + 
+  #   stat_ecdf(aes(tp$TITLE), fill = "green", na.rm = TRUE, geom = "area" ) + 
+  #   stat_ecdf(aes(tn$TITLE), fill = "red", na.rm = TRUE, geom = "area") + 
+  #   labs(title="Empirical Cumulative Density Function",
+  #        y = "F(Distance)", x="Distance")
+  # 
+}
