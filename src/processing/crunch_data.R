@@ -81,15 +81,15 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   # Generate pair identification and info
   results <- generate_pairs(targets = grp1, candidates = grp2)
   
+  # Set columns for string distance measurement
+  group_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
+  
   if (nrow(results) == 0){
     results_empty <- data.frame(matrix(ncol = 14, nrow = 0))
     colnames(results_empty) <- c(colnames(results), group_filter)
     write.csv(as_tibble(results_empty), file = paste("./data/processed_raw/", metric, year, ".csv", sep = ""))
     return(c("No comparisons found"))
   }
-  
-  # Set columns for string distance measurement
-  group_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
   
   # Calculate total number of operations
   print(paste("Operations per column: ", nrow(results)))
