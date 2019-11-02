@@ -34,7 +34,8 @@ split_training <- function(input, type="default"){
               row.names = FALSE)
     
     
-  } else {
+  } 
+  if (type == 'default'){
     # same split method, except without the standardisation step necessary for levenshtein distance
     data <- read_csv(input, 
                      col_types = cols(.default = col_double(),
@@ -43,7 +44,7 @@ split_training <- function(input, type="default"){
                      na = "NA")
     
     column_filter <- c("TITLE","ABSTRACT","SOURCE","PUBLISHER","PUBLISHER_LOCATION", "CONFERENCE_NAME", "AUTHORS", "AUTHORS_CTU")
-    data <- data %>% select(X1,ID1,YEAR1,DOI1,ID2,YEAR2,DOI2, column_filter)
+    data <- data %>% select(X1,ID1,YEAR1,DOI1,ID2,YEAR2,DOI2,column_filter)
     # if either DOI is missing, save into validation dataset (to be processed by hand)
     write.csv(data %>% filter(is.na(DOI1) |  is.na(DOI2)),
               file = paste("./data/processed_standardised_validation/", basename(input), sep = ""), 
