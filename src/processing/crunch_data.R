@@ -82,8 +82,9 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   results <- generate_pairs(targets = grp1, candidates = grp2)
   
   if (nrow(results) == 0){
-    
-    write.csv(results, file = paste("./data/processed_raw/", metric, year, ".csv", sep = ""))
+    results_empty <- data.frame(matrix(ncol = 14, nrow = 0))
+    colnames(results_empty) <- c(colnames(results), group_filter)
+    write.csv(as_tibble(results_empty), file = paste("./data/processed_raw/", metric, year, ".csv", sep = ""))
     return(c("No comparisons found"))
   }
   
