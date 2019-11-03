@@ -87,7 +87,7 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
   if (nrow(results) == 0){
     results_empty <- data.frame(matrix(ncol = 14, nrow = 0))
     colnames(results_empty) <- c(colnames(results), group_filter)
-    write.csv(as_tibble(results_empty), file = paste("./data/processed_raw/", metric, year, ".csv", sep = ""))
+    write.csv(as_tibble(results_empty), file = paste("./data/processed_raw/", metric, "_", year, ".csv", sep = ""))
     return(c("No comparisons found"))
   }
   
