@@ -129,13 +129,21 @@ crunch <- function(year, metric, stringLength=FALSE, dryRun=FALSE) {
     
     # perform string comparison between the two sequences
     if (metric == "jaro"){
-      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jw", p=0)
+      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jw", p = 0)
     } else if (metric == "jw"){
-      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jw", p=0.1)
+      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jw", p = 0.1)
+    } else if (metric == "jaccard3"){ 
+      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jaccard", q = 3)
+    } else if (metric == "jaccard4"){ 
+      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "jaccard", q = 4)
+    } else if (metric == "cosine3"){ 
+        results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "cosine", q = 3)
+    } else if (metric == "cosine4"){ 
+      results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = "cosine", q = 4)
     } else {
       results[,colname] <- stringdist(a = sequence_targets, b = sequence_candidates, method = metric)
     }
   }
   print("Done... writing results.")
-  write.csv(results, file = paste("./data/processed_raw/", metric, year,".csv", sep = ""))
+  write.csv(results, file = paste("./data/processed_raw/", metric, "_", year,".csv", sep = ""))
 }
