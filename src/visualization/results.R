@@ -1,3 +1,10 @@
+source("./src/processing/utils.R")
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(tibble)
+
+
 get_precision <- function(data, match_treshold, colname){
   # calculate precision based on number of columns which comply with characteristic of true positive, true negative etc.
   # column name in filter() needs to be unquoted using UQ(as.symbol()) due to the dplyr semantics (https://stackoverflow.com/questions/27197617/filter-data-frame-by-character-column-name-in-dplyr)
@@ -18,27 +25,35 @@ get_recall <- function(data, match_treshold, colname){
   return(TP/(TP+FN))
 }
 
-pr_subset <- function(path, colname){
-  data <- open_data(path)
-  return(cbind(data[1:7],data[colname]))
+get_fmeasure <- function(precision, recall){
+  # return harmonic mean of precision anf recall
+  return(
+    2*((precision*recall)/(precision+recall))
+      )
 }
 
-generate_results <- function(method, group, data, colname){
+generate_results <- function(data, colname){
+  # Generates table of with values of precision and recall for given match treshold
   results <- data.frame(
-    "Method" = character(),
-    "Group" = integer(),
     "Treshold" = double(),
     "Precision" = double(),
     "Recall" = double()
   )
-  for (x in seq(0.1,0, by=0.01)){
+  # for (x in seq(from = 0.1, to = 0, by=-0.0001)){
+  for (x in seq(from = 0.7, to = 0, by=-0.0001)){
     results <- rbind(results, data.frame(
-      "Method" = method,
-      "Group" = group,
       "Treshold" = x,
       "Precision" = get_precision(data, x, colname),
-      "Recall" = get_recall(data, x, colname)
+      "Recall" = get_recall(data, x, colname),
+      "Fmeasure" = get_fmeasure(get_precision(data, x, colname), get_recall(data, x, colname))
     ))
   }
+  return(results)
+}
+
+generate_results_merge <- function(metric, group, colname){
+  # Use generate_results for specific range and metric
+  paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall/",metric=metric, extension=".csv")
+  results <- generate_results(data = open_multiple(paths), colname)
   return(results)
 }
