@@ -55,5 +55,25 @@ split_training <- function(input, type="default"){
               file = paste("./data/processed_standardised_training/", basename(input), sep = ""), 
               row.names = FALSE)
   }
-  
+}
+
+filter_tn <- function(path, column){
+  # filter out true negatives for given column, keep info
+  data <- open_data(path)
+  # Filter out true negative matches (DOI's don't match and are below lowest considered treshold)
+  # Keep first 7 columns, add another column from parameter
+  data <- as_tibble(cbind(data[1:7],data[column])) %>% filter(!(UQ(as.symbol(column)) >= 0.3 & DOI1!=DOI2))
+  write_csv(x = data, path = paste("./data/precision_recall/", basename(path), sep = ""))
+}
+
+get_valid_doi <- function(sourcefile){
+  # obtain vector containing each valid doi from provided dataset
+  reclink_data <- readRDS(sourcefile)
+  return(unique(reclink_data$DOI_CODE))
+}
+
+filter_invalid_doi <- function(path, doi_list){
+  # opens file and filters out invalid identifiers from doi_list
+  data <- open_data(path) %>% filter(DOI1 %in% doi_list && DOI2 %in% doi_list)
+  write.csv(data, file = paste("./data/precision_recall_filtered/", basename(path), sep = ""), row.names = FALSE)
 }
