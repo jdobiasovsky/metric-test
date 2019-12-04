@@ -5,6 +5,7 @@ library(readr)
 library(tibble)
 
 
+
 get_precision <- function(data, match_treshold, colname){
   # calculate precision based on number of columns which comply with characteristic of true positive, true negative etc.
   # column name in filter() needs to be unquoted using UQ(as.symbol()) due to the dplyr semantics (https://stackoverflow.com/questions/27197617/filter-data-frame-by-character-column-name-in-dplyr)
@@ -26,34 +27,65 @@ get_recall <- function(data, match_treshold, colname){
 }
 
 get_fmeasure <- function(precision, recall){
-  # return harmonic mean of precision anf recall
+  # return harmonic mean of precision and recall
   return(
     2*((precision*recall)/(precision+recall))
       )
 }
 
-generate_results <- function(data, colname){
+
+
+generate_results <- function(data, colname, exploratory=FALSE){
   # Generates table of with values of precision and recall for given match treshold
   results <- data.frame(
     "Treshold" = double(),
     "Precision" = double(),
     "Recall" = double()
   )
-  # for (x in seq(from = 0.1, to = 0, by=-0.0001)){
-  for (x in seq(from = 0.7, to = 0, by=-0.0001)){
+  if (exploratory == TRUE) {
+    for (x in seq(from = 0.1, to = 0, by=-0.01)){
+      TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
+      FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
+      FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > x) %>% nrow()
+      
+      
+      results <- rbind(results, data.frame(
+        "Treshold" = x,
+        "Precision" = TP/(TP+FP),
+        "Recall" = TP/(TP+FN),
+        "Fmeasure" = get_fmeasure(TP/(TP+FP), TP/(TP+FN)),
+        "TP" = TP,
+        "FP" = FP,
+        "FN" = FN
+      ))
+    }
+    
+    return(results)
+  } else {
+  for (x in seq(from = 0.1, to = 0, by=-0.0001)){
+    TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
+    FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
+    FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > x) %>% nrow()
+    
+    
     results <- rbind(results, data.frame(
       "Treshold" = x,
-      "Precision" = get_precision(data, x, colname),
-      "Recall" = get_recall(data, x, colname),
-      "Fmeasure" = get_fmeasure(get_precision(data, x, colname), get_recall(data, x, colname))
+      "Precision" = TP/(TP+FP),
+      "Recall" = TP/(TP+FN),
+      "Fmeasure" = get_fmeasure(TP/(TP+FP), TP/(TP+FN)),
+      "TP" = TP,
+      "FP" = FP,
+      "FN" = FN
     ))
   }
-  return(results)
+  
+  return(results)}
 }
+
 
 generate_results_merge <- function(metric, group, colname){
   # Use generate_results for specific range and metric
-  paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall/",metric=metric, extension=".csv")
+  paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall_filtered/",metric=metric, extension=".csv")
   results <- generate_results(data = open_multiple(paths), colname)
   return(results)
 }
