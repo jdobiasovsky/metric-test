@@ -44,6 +44,7 @@ generate_results <- function(data, colname, exploratory=FALSE){
   )
   if (exploratory == TRUE) {
     for (x in seq(from = 0.1, to = 0, by=-0.01)){
+      gc()
       TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
       FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
       FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > x) %>% nrow()
@@ -62,11 +63,13 @@ generate_results <- function(data, colname, exploratory=FALSE){
     
     return(results)
   } else {
-  for (x in seq(from = 0.1, to = 0, by=-0.0001)){
+  print(paste("Starting results generation, current time:", Sys.time()))
+    
+  for (x in seq(from = 0.6, to = 0, by=-0.0001)){
+    gc()
     TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
     FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
     FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > x) %>% nrow()
-    
     
     results <- rbind(results, data.frame(
       "Treshold" = x,
@@ -78,14 +81,14 @@ generate_results <- function(data, colname, exploratory=FALSE){
       "FN" = FN
     ))
   }
-  
+  print(paste("Processing done, current time:", Sys.time()))
   return(results)}
 }
 
 
 generate_results_merge <- function(metric, group, colname){
   # Use generate_results for specific range and metric
-  paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall_filtered/",metric=metric, extension=".csv")
+  paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall_filtered_06/",metric=metric, extension=".csv")
   results <- generate_results(data = open_multiple(paths), colname)
   return(results)
 }

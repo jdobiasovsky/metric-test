@@ -62,7 +62,7 @@ filter_tn <- function(path, column){
   data <- open_data(path)
   # Filter out true negative matches (DOI's don't match and are below lowest considered treshold)
   # Keep first 7 columns, add another column from parameter
-  data <- as_tibble(cbind(data[1:7],data[column])) %>% filter(!(UQ(as.symbol(column)) >= 0.3 & DOI1!=DOI2))
+  data <- as_tibble(cbind(data[1:7],data[column])) %>% filter(!(UQ(as.symbol(column)) >= 0.6 & DOI1!=DOI2))
   write_csv(x = data, path = paste("./data/precision_recall/", basename(path), sep = ""))
 }
 
@@ -75,5 +75,5 @@ get_valid_doi <- function(sourcefile){
 filter_invalid_doi <- function(path, doi_list){
   # opens file and filters out invalid identifiers from doi_list
   data <- open_data(path) %>% filter(DOI1 %in% doi_list && DOI2 %in% doi_list)
-  write.csv(data, file = paste("./data/precision_recall_filtered/", basename(path), sep = ""), row.names = FALSE)
+  write.csv(data, file = paste("./data/precision_recall_filtered_06/", basename(path), sep = ""), row.names = FALSE)
 }
