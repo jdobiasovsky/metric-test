@@ -37,6 +37,7 @@ get_fmeasure <- function(precision, recall){
 
 generate_results <- function(data, colname, exploratory=FALSE){
   # Generates table of with values of precision and recall for given match treshold
+  gc(full=TRUE)
   results <- data.frame(
     "Treshold" = double(),
     "Precision" = double(),
@@ -87,13 +88,23 @@ generate_results <- function(data, colname, exploratory=FALSE){
   getTxtProgressBar(pb)
   }
   print(paste("Processing done, current time:", Sys.time()))
-  return(results)}
+  return(results)
+  }
 }
 
 
-generate_results_merge <- function(metric, group, colname){
+generate_results_merge <- function(metric, group, colname, exploratory=FALSE){
   # Use generate_results for specific range and metric
   paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall_filtered_06/",metric=metric, extension=".csv")
-  results <- generate_results(data = open_multiple(paths), colname)
-  return(results)
+  results <- generate_results(data = open_multiple(paths), colname, exploratory)
+  if (exploratory == TRUE){
+    return(results)
+  } else {
+    write_csv(results,
+              path = build_path(base = "./data/results_storage/", 
+                                metric=metric, 
+                                year = paste(head(group, n=1),tail(group,n=1), sep = "-"),
+                                extension = ".csv"),
+              col_names = TRUE)
+  }
 }
