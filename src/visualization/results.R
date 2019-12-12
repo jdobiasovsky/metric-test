@@ -43,6 +43,7 @@ generate_results <- function(data, colname, exploratory=FALSE){
     "Recall" = double()
   )
   if (exploratory == TRUE) {
+    pb <- txtProgressBar(min = 0, max=100, initial = 0, style = 3)
     for (x in seq(from = 0.1, to = 0, by=-0.01)){
       gc()
       TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
@@ -59,12 +60,14 @@ generate_results <- function(data, colname, exploratory=FALSE){
         "FP" = FP,
         "FN" = FN
       ))
+      setTxtProgressBar(pb,value=round((1-x)*100))
+      getTxtProgressBar(pb)
     }
     
     return(results)
   } else {
   print(paste("Starting results generation, current time:", Sys.time()))
-    
+  pb <- txtProgressBar(min = 0, max=100, initial = 0, style = 3)
   for (x in seq(from = 0.6, to = 0, by=-0.0001)){
     gc()
     TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= x) %>% nrow()
@@ -80,6 +83,8 @@ generate_results <- function(data, colname, exploratory=FALSE){
       "FP" = FP,
       "FN" = FN
     ))
+  setTxtProgressBar(pb,value=round((1-x)*100))
+  getTxtProgressBar(pb)
   }
   print(paste("Processing done, current time:", Sys.time()))
   return(results)}
