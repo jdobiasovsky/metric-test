@@ -1,4 +1,4 @@
-# USE THESE FOR PRECISE RESULTS
+## Legacy graph plotting functions
 show_perfomance_metrics_line <- function(year, graph_title="Precision-Recall curve plot"){
   # Show exact precision-recall graph comparing metrics within years specified in year parameter (Line connectting each observation)
   print("Begin results generation.")

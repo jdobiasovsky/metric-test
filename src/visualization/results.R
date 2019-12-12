@@ -36,7 +36,7 @@ get_fmeasure <- function(precision, recall){
 
 
 generate_results <- function(data, colname, exploratory=FALSE){
-  # Generates table of with values of precision and recall for given match treshold
+  # Generates table of with values of precision and recall for given match treshold. Set exploratory=TRUE to generate shortened version straight into memory
   gc(full=TRUE)
   results <- data.frame(
     "Treshold" = double(),
@@ -96,6 +96,7 @@ generate_results <- function(data, colname, exploratory=FALSE){
 generate_results_merge <- function(metric, group, colname, exploratory=FALSE){
   # Use generate_results for specific range and metric
   paths <- sapply(X = group, FUN = build_path, base="./data/precision_recall_filtered_06/",metric=metric, extension=".csv")
+  print(paste("Loop start for:", metric, head(group, n=1),"-",tail(group,n=1)))
   results <- generate_results(data = open_multiple(paths), colname, exploratory)
   if (exploratory == TRUE){
     return(results)

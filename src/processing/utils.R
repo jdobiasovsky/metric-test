@@ -9,7 +9,8 @@ open_data <- function(input){
 }
 
 open_results <- function(input){
-  return(read_csv("data/results_storage/lv_2000-2000.csv", 
+  # helper function for opening and exploring results files (loads as tibble)
+  return(read_csv(input, 
            col_types = cols(FN = col_double(), FP = col_double(), 
                             Fmeasure = col_double(), Precision = col_double(), 
                             Recall = col_double(), TP = col_double(), 
@@ -17,6 +18,7 @@ open_results <- function(input){
 }
 
 open_results_column <- function(metric,year,colname){
+  # open specific column of results file as vector. Used for plotting graphs
   if (colname == "Treshold"){
     return(unlist(
       read_csv(
@@ -63,9 +65,11 @@ open_results_column <- function(metric,year,colname){
 }
 
 open_multiple <- function(list){
+  # call open_data on multiple files
   return(do.call(rbind,lapply(list,open_data)))
 }
 
 build_path <- function(base, metric, year, extension){
+  # utility for generating paths to files
   return(paste(base, metric, "_", year, extension, sep = ""))
 }
