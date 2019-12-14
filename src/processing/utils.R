@@ -20,25 +20,27 @@ open_results <- function(input){
 open_results_column <- function(metric,year,colname){
   # open specific column of results file as vector. Used for plotting graphs
   if (colname == "Treshold"){
-    return(unlist(
-      read_csv(
-        file = build_path(base = "./data/results_storage/", 
-                          metric=metric, 
-                          year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
-                          extension = ".csv"),
-        col_types = cols_only(Treshold = col_double())
-        )
-    ), use.names=FALSE)
+    return(
+      unlist(
+        read_csv(file = build_path(base = "./data/results_storage/", 
+                                   metric=metric, 
+                                   year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
+                                   extension = ".csv"),
+                  col_types = cols_only(Treshold = col_double())
+                  )
+        ,use.names=FALSE)
+    )
   } else if (colname == "Precision"){
-      return(
-        unlist(
-          read_csv(file = build_path(base = "./data/results_storage/", 
-                                     metric=metric, 
-                                     year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
-                                     extension = ".csv"),
-          col_types = cols_only(Precision = col_double())
-          )
-      ), use.names=FALSE)
+    return(
+      unlist(
+        read_csv(file = build_path(base = "./data/results_storage/", 
+                                   metric=metric, 
+                                   year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
+                                   extension = ".csv"),
+                 col_types = cols_only(Precision = col_double())
+        )
+        ,use.names=FALSE)
+    )
   } else if (colname == "Recall"){
     return(
       unlist(
@@ -47,8 +49,9 @@ open_results_column <- function(metric,year,colname){
                                    year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
                                    extension = ".csv"),
                  col_types = cols_only(Recall = col_double())
-                 )
-        ), use.names=FALSE)
+        )
+        ,use.names=FALSE)
+    )
   } else if (colname == "Fmeasure"){
     return(
       unlist(
@@ -57,8 +60,9 @@ open_results_column <- function(metric,year,colname){
                                    year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
                                    extension = ".csv"),
                  col_types = cols_only(Fmeasure = col_double())
-                 )
-        ), use.names=FALSE)
+        )
+        ,use.names=FALSE)
+    )
   } else {
     return(NA)
   }
