@@ -33,6 +33,13 @@ get_fmeasure <- function(precision, recall){
       )
 }
 
+get_f_beta_measure <- function(precision, recall, beta){
+  # return harmonic mean of precision and recall where beta is weight of recall
+  return(
+    (1+beta^2)*((precision*recall)/(((beta^2)*precision) + recall))
+  )
+}
+
 
 
 generate_results <- function(data, colname, exploratory=FALSE){

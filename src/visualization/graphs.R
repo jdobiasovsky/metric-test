@@ -64,7 +64,7 @@ show_fmeasure_treshold <- function(year, graph_title="F-Measure plot"){
 
 draw_results_graph <- function(metric, year, graph_title="Precision-Recall curve plot"){
   # Precision recall graph of single metric with shown threshold points
-  data <- generate_results_merge(metric, year, "TITLE")   
+  data <- generate_results_merge(metric, year, "TITLE", exploratory = TRUE)   
 
   ggplot(data) + 
     geom_line(aes(x=Recall, y=Precision)) +

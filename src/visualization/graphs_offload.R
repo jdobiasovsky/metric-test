@@ -54,7 +54,7 @@ draw_results_graph <- function(metric, year, graph_title="Precision-Recall curve
   data <- generate_results_merge(metric, year, "TITLE")   
   
   ggplot(data) + 
-    geom_line(aes(x=Recall, y=Precision)) +
+    geom_line(aes(x=open_results_column(metric,year,"Precision"), y=open_results_column(metric,year,"Recall"))) +
     geom_label_repel(aes(x=Recall, y=Precision,label=Treshold), data=data[seq(1, nrow(data), 100), ],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            box.padding   = 0.35, 
                      point.padding = 0.5,
                      segment.color = 'grey50')+

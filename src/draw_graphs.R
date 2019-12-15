@@ -1,51 +1,125 @@
-# Generate neccesary data calling prep_plot_data() and draw all required graphs.
-time_start <- Sys.time()
-source("./src/visualization/setenv.R")
+ggplot() + 
+  geom_line(aes(x=open_results_column("lv",2016:2018,"Recall"), y=open_results_column("lv",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("lv",2008:2018,"Recall"), y=open_results_column("lv",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("lv",1950:2018,"Recall"), y=open_results_column("lv",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [lv]", x="Recall", y="Precision")
 
-print("Generating data for test group 1...")
-prep_plot_data(2008:2018)
-show_perfomance_metrics_line(2008:2018, "Metric precision vs. recall [2008-2018]")
-ggsave(filename = "PrecisionRecall_2008-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "PrecisionRecall_2008-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [1/6]")
+ggsave(filename = "PrecisionRecall_lv.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_lv_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaro",2016:2018,"Recall"), y=open_results_column("jaro",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("jaro",2008:2018,"Recall"), y=open_results_column("jaro",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaro",1950:2018,"Recall"), y=open_results_column("jaro",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [jaro]", x="Recall", y="Precision")
 
-show_fmeasure_treshold(2008:2018, "Metric F-measure vs. treshold [2008-2018]")
-ggsave(filename = "Fmeasure_2008-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "Fmeasure_2008-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [2/6]")
+ggsave(filename = "PrecisionRecall_jaro.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_jaro_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
-print("Generating data for test group 2...")
-prep_plot_data(1950:2018)
-show_perfomance_metrics_line(1950:2018, "Metric precision vs. recall [1950-2018]")
-ggsave(filename = "PrecisionReca1l_1950-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "PrecisionRecall_1950-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [3/6]")
+ggplot() + 
+  geom_line(aes(x=open_results_column("jw",2016:2018,"Recall"), y=open_results_column("jw",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("jw",2008:2018,"Recall"), y=open_results_column("jw",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jw",1950:2018,"Recall"), y=open_results_column("jw",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [jw]", x="Recall", y="Precision")
 
+ggsave(filename = "PrecisionRecall_jw.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_jw_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
-show_fmeasure_treshold(1950:2018, "Metric F-measure vs. treshold [1950-2018]")
-ggsave(filename = "Fmeasure1950-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "Fmeasure1950-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [4/6]")
+ggplot() + 
+  geom_line(aes(x=open_results_column("cosine3",2016:2018,"Recall"), y=open_results_column("cosine3",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("cosine3",2008:2018,"Recall"), y=open_results_column("cosine3",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("cosine3",1950:2018,"Recall"), y=open_results_column("cosine3",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [cosine3]", x="Recall", y="Precision")
 
-print("Generating data for test group 3...")
-prep_plot_data(2016:2018)
-show_perfomance_metrics_line(2016:2018, "Metric precision vs. recall [2016-2018]")
-ggsave(filename = "PrecisionRecall_2016-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "PrecisionRecall_2016-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [5/6]")
+ggsave(filename = "PrecisionRecall_cosine3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_cosine3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
+ggplot() + 
+  geom_line(aes(x=open_results_column("cosine4",2016:2018,"Recall"), y=open_results_column("cosine4",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("cosine4",2008:2018,"Recall"), y=open_results_column("cosine4",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("cosine4",1950:2018,"Recall"), y=open_results_column("cosine4",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [cosine4]", x="Recall", y="Precision")
 
-show_fmeasure_treshold(2016:2018, "Metric F-measure vs. treshold [2016-2018]")
-ggsave(filename = "Fmeasure_2016-2018.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
-ggsave(filename = "Fmeasure_2016-2018_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
-gc()
-print("Graph done [6/6]")
+ggsave(filename = "PrecisionRecall_cosine4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_lv_cosine4.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
-time_stop <- Sys.time()
-difftime(time_stop, time_start, units = "hours")
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaccard3",2016:2018,"Recall"), y=open_results_column("jaccard3",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("jaccard3",2008:2018,"Recall"), y=open_results_column("jaccard3",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaccard3",1950:2018,"Recall"), y=open_results_column("jaccard3",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [jaccard3]", x="Recall", y="Precision")
+
+ggsave(filename = "PrecisionRecall_jaccard3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_jaccard3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaccard4",2016:2018,"Recall"), y=open_results_column("jaccard4",2016:2018,"Precision"), color="2016-2018")) +
+  geom_line(aes(x=open_results_column("jaccard4",2008:2018,"Recall"), y=open_results_column("jaccard4",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaccard4",1950:2018,"Recall"), y=open_results_column("jaccard4",1950:2018,"Precision"), color="1950-2018")) +
+  labs(title="Precision vs. recall for metric [jaccard4]", x="Recall", y="Precision")
+
+ggsave(filename = "PrecisionRecall_jaccard4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "PrecisionRecall_jaccard4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [lv]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_lv.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_lv_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jw]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_jw.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_jw_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaro]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_jaro.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_jaro_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [cosine3]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_cosine3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_cosine3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [cosine4]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_cosine4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_cosine4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaccard3]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_jaccard3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_jaccard3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
+
+ggplot() + 
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaccard4]", x="Treshold", y="F_beta-measure value")
+
+ggsave(filename = "fbeta_jaccard4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
+ggsave(filename = "fbeta_jaccard4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")

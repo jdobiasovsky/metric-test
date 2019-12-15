@@ -63,6 +63,28 @@ open_results_column <- function(metric,year,colname){
         )
         ,use.names=FALSE)
     )
+  } else if (colname == "F2measure"){
+    return(
+      unlist(
+        read_csv(file = build_path(base = "./data/results_storage/", 
+                                   metric=metric, 
+                                   year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
+                                   extension = ".csv"),
+                 col_types = cols_only(F2measure = col_double())
+        )
+        ,use.names=FALSE)
+    )
+  } else if (colname == "F3measure"){
+    return(
+      unlist(
+        read_csv(file = build_path(base = "./data/results_storage/", 
+                                   metric=metric, 
+                                   year = paste(head(year, n=1),tail(year,n=1), sep = "-"),
+                                   extension = ".csv"),
+                 col_types = cols_only(F3measure = col_double())
+        )
+        ,use.names=FALSE)
+    )  
   } else {
     return(NA)
   }
