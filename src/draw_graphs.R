@@ -1,6 +1,6 @@
 ggplot() + 
   geom_line(aes(x=open_results_column("lv",2016:2018,"Recall"), y=open_results_column("lv",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("lv",2008:2018,"Recall"), y=open_results_column("lv",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("lv",2009:2018,"Recall"), y=open_results_column("lv",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("lv",1950:2018,"Recall"), y=open_results_column("lv",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [lv]", x="Recall", y="Precision")
 
@@ -9,7 +9,7 @@ ggsave(filename = "PrecisionRecall_lv_hd.png", path = "./data/graphs_remote/", w
 
 ggplot() + 
   geom_line(aes(x=open_results_column("jaro",2016:2018,"Recall"), y=open_results_column("jaro",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("jaro",2008:2018,"Recall"), y=open_results_column("jaro",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaro",2009:2018,"Recall"), y=open_results_column("jaro",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("jaro",1950:2018,"Recall"), y=open_results_column("jaro",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [jaro]", x="Recall", y="Precision")
 
@@ -18,7 +18,7 @@ ggsave(filename = "PrecisionRecall_jaro_hd.png", path = "./data/graphs_remote/",
 
 ggplot() + 
   geom_line(aes(x=open_results_column("jw",2016:2018,"Recall"), y=open_results_column("jw",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("jw",2008:2018,"Recall"), y=open_results_column("jw",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jw",2009:2018,"Recall"), y=open_results_column("jw",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("jw",1950:2018,"Recall"), y=open_results_column("jw",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [jw]", x="Recall", y="Precision")
 
@@ -27,7 +27,7 @@ ggsave(filename = "PrecisionRecall_jw_hd.png", path = "./data/graphs_remote/", w
 
 ggplot() + 
   geom_line(aes(x=open_results_column("cosine3",2016:2018,"Recall"), y=open_results_column("cosine3",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("cosine3",2008:2018,"Recall"), y=open_results_column("cosine3",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("cosine3",2009:2018,"Recall"), y=open_results_column("cosine3",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("cosine3",1950:2018,"Recall"), y=open_results_column("cosine3",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [cosine3]", x="Recall", y="Precision")
 
@@ -36,7 +36,7 @@ ggsave(filename = "PrecisionRecall_cosine3_hd.png", path = "./data/graphs_remote
 
 ggplot() + 
   geom_line(aes(x=open_results_column("cosine4",2016:2018,"Recall"), y=open_results_column("cosine4",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("cosine4",2008:2018,"Recall"), y=open_results_column("cosine4",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("cosine4",2009:2018,"Recall"), y=open_results_column("cosine4",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("cosine4",1950:2018,"Recall"), y=open_results_column("cosine4",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [cosine4]", x="Recall", y="Precision")
 
@@ -45,7 +45,7 @@ ggsave(filename = "PrecisionRecall_lv_cosine4.png", path = "./data/graphs_remote
 
 ggplot() + 
   geom_line(aes(x=open_results_column("jaccard3",2016:2018,"Recall"), y=open_results_column("jaccard3",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("jaccard3",2008:2018,"Recall"), y=open_results_column("jaccard3",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaccard3",2009:2018,"Recall"), y=open_results_column("jaccard3",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("jaccard3",1950:2018,"Recall"), y=open_results_column("jaccard3",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [jaccard3]", x="Recall", y="Precision")
 
@@ -54,7 +54,7 @@ ggsave(filename = "PrecisionRecall_jaccard3_hd.png", path = "./data/graphs_remot
 
 ggplot() + 
   geom_line(aes(x=open_results_column("jaccard4",2016:2018,"Recall"), y=open_results_column("jaccard4",2016:2018,"Precision"), color="2016-2018")) +
-  geom_line(aes(x=open_results_column("jaccard4",2008:2018,"Recall"), y=open_results_column("jaccard4",2008:2018,"Precision"), color="2008-2018")) +
+  geom_line(aes(x=open_results_column("jaccard4",2009:2018,"Recall"), y=open_results_column("jaccard4",2009:2018,"Precision"), color="2009-2018")) +
   geom_line(aes(x=open_results_column("jaccard4",1950:2018,"Recall"), y=open_results_column("jaccard4",1950:2018,"Precision"), color="1950-2018")) +
   labs(title="Precision vs. recall for metric [jaccard4]", x="Recall", y="Precision")
 
