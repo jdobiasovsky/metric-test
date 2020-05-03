@@ -3,19 +3,11 @@ source("src/preparation/load_dataset.R", echo = TRUE)
 source("src/preparation/split_df.R", echo = TRUE)
 rm(dataset_clean_human, dataset_raw, reclink_data, reclink_CROSSREF, envir = .GlobalEnv)
 source("src/processing/crunch_data.R")
+prep_env()
 
 # Raw processing, calculate string simmilarities
-for (mtrc in c("lv", "jaro", "jw", "jaccard", "qgram")){
+for (mtrc in c("lv", "jaro", "jw", "jaccard3","jaccard4" "cosine3", "cosine4")){
   for (year in 1950:2019){
     crunch(year = year, metric = mtrc, stringLength = TRUE)
   }
 }
-
-
-# Standardise and create neat files for visualisation and learning
-source("src/processing/analysis.R")
-for (file in list.files(path = "./data/processed_raw", full.names = TRUE))   {
-     print(paste("Standardising ", file))
-     
-  }
-     
