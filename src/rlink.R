@@ -1,9 +1,8 @@
 # Convenience script that loads dataset and performs record linkage for all 5 metrics one after another
-source("src/preparation/load_dataset.R", echo = TRUE)
-source("src/preparation/split_df.R", echo = TRUE)
-rm(dataset_clean_human, dataset_raw, reclink_data, reclink_CROSSREF, envir = .GlobalEnv)
+source("src/preparation/load_dataset.R")
+source("src/preparation/split_df.R")
 source("src/processing/crunch_data.R")
-prep_env()
+prep_env() # clear unnecessary variables
 
 # Raw processing, calculate string simmilarities
 for (mtrc in c("lv", "jaro", "jw", "jaccard3","jaccard4" "cosine3", "cosine4")){
