@@ -2,11 +2,11 @@
 R script for comparing efficiency of edit distance metrics used in my diploma thesis. 
 
 The results are available here:
-*#TODO Update with zenodo link and DOI*
+https://doi.org/10.5281/zenodo.3785363
 
-You can find the thesis here: 
+You can find the thesis (in Czech) here: 
 *#TODO Update with thesis citation*
-It is however only available in czech language.
+
 
 
 
@@ -16,7 +16,7 @@ To sum up entire process, the script loads all necessary data and generates pair
 
 The entire process is divided into 3 main stages:
 
-**1) Preparation**
+#### 1) Preparation
 
 This section provides a script for loading the original .csv file (not available due to copyright and legal restrictions) and splitting the data into 3 datasets based on publication record origin. 
 
@@ -42,7 +42,7 @@ rm(dataset_clean_human, dataset_raw, reclink_data, reclink_CROSSREF, envir = .Gl
 
 
 
-**2) Processing**
+#### 2) Processing
 
 This is where most of the magic happens. This folder contains main script for generating string distances, standardization and some utilities for general data wrangling. Script at metric-test/src/rlink.R can also be used to get all the raw string distances generated in one go.
 
@@ -77,9 +77,17 @@ for (mtrc in c("lv", "jaro", "jw", "jaccard3","jaccard4" "cosine3", "cosine4")){
 Provides two main utilities: 
 - split_training() which filters out pairs with and without DOI records for given raw processed result
 - filter_tn() which helps flatten the dataset a little bit by filtering out true negative matches (DOI's don't match and are below lowest considered treshold - currently 0.6)
+- is lv_stand() which converts levenshtein distance to <0,1> range using the distance and maximum string lenght of the character. There are also some functions for filtering invalid DOI's which currently work only with provided list that were filtered out of the original dataset using external process to make the process little bit more precise. 
 
-Another useful function is lv_stand() which converts levenshtein distance to <0,1> range using the distance and maximum string lenght of the character. There are also some functions for filtering invalid DOI's which currently work only with provided list that were filtered out of the original dataset using external process to make the process little bit more precise. 
 
+**/src/processing/results.R**
+This script can be used to load the processed and standardised data. 
+Each pair generated has the DOI pairs compared. Based on whether DOI's match and given the set threshold, it is decided whether the result would be classified as true positive, false positive or false negative. For example if DOI's match and the string distance is lower than threshold. The pair would be classified as true positive. If the DOI doesn't match, but the string
+distance was lower than threshold, the pair does not contain same publications and it is therefore false positive. 
+Generated data is saved into .csv data for further processing and visualisation.
 
-**3) Visualization**
-#TODO
+#### 3) Visualization
+This section contains mainly scripts for visualizing data and/or scripts used to create the graphs in the thesis. /src/visualization/prep_env.R can be used to quickly setup work environment and scripts with graph_ prefix to visualise data
+
+#### 4) Validation 
+Provides convenience scripts for quickly creating test samples for manual validation and script used to help with the evaluation itself
