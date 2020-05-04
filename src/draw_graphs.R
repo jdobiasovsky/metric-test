@@ -62,64 +62,64 @@ ggsave(filename = "PrecisionRecall_jaccard4.png", path = "./data/graphs_remote/"
 ggsave(filename = "PrecisionRecall_jaccard4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Treshold"), y=open_results_column("lv_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [lv]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Threshold"), y=open_results_column("lv_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Threshold"), y=open_results_column("lv_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("lv_fbeta",1950:2018,"Threshold"), y=open_results_column("lv_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [lv]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_lv.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_lv_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Treshold"), y=open_results_column("jw_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [jw]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Threshold"), y=open_results_column("jw_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Threshold"), y=open_results_column("jw_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jw_fbeta",1950:2018,"Threshold"), y=open_results_column("jw_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jw]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_jw.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_jw_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Treshold"), y=open_results_column("jaro_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [jaro]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Threshold"), y=open_results_column("jaro_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Threshold"), y=open_results_column("jaro_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaro_fbeta",1950:2018,"Threshold"), y=open_results_column("jaro_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaro]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_jaro.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_jaro_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [cosine3]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("cosine3_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [cosine3]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_cosine3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_cosine3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Treshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [cosine4]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("cosine4_fbeta",1950:2018,"Threshold"), y=open_results_column("cosine4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [cosine4]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_cosine4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_cosine4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [jaccard3]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaccard3_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard3_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaccard3]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_jaccard3.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_jaccard3_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")
 
 ggplot() + 
-  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
-  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
-  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Treshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
-  labs(title="F_beta-measure comparison for metric [jaccard4]", x="Treshold", y="F_beta-measure value")
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"Fmeasure"), color="F-measure")) +
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F2measure"), color="F_2-measure")) +
+  geom_line(aes(x=open_results_column("jaccard4_fbeta",1950:2018,"Threshold"), y=open_results_column("jaccard4_fbeta",1950:2018,"F3measure"), color="F_3-measure")) +
+  labs(title="F_beta-measure comparison for metric [jaccard4]", x="Threshold", y="F_beta-measure value")
 
 ggsave(filename = "fbeta_jaccard4.png", path = "./data/graphs_remote/", width = 5, height = 4, dpi = "print" , units = "in")
 ggsave(filename = "fbeta_jaccard4_hd.png", path = "./data/graphs_remote/", width = 10, height = 8, dpi = "print" , units = "in")

@@ -6,23 +6,23 @@ library(tibble)
 
 
 
-get_precision <- function(data, match_treshold, colname){
+get_precision <- function(data, match_threshold, colname){
   # calculate precision based on number of columns which comply with characteristic of true positive, true negative etc.
   # column name in filter() needs to be unquoted using UQ(as.symbol()) due to the dplyr semantics (https://stackoverflow.com/questions/27197617/filter-data-frame-by-character-column-name-in-dplyr)
-  # True positive = given comparison is above match treshold and also DOI's match
-  TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= match_treshold) %>% nrow()
-  #True negative = given comparison is above match treshold but the DOI's don't match (means it's two different documents)
-  FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= match_treshold) %>% nrow()
+  # True positive = given comparison is above match threshold and also DOI's match
+  TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= match_threshold) %>% nrow()
+  #True negative = given comparison is above match threshold but the DOI's don't match (means it's two different documents)
+  FP <- data %>% filter(DOI1!=DOI2) %>% filter(UQ(as.symbol(colname)) <= match_threshold) %>% nrow()
   return(TP/(TP+FP))
 }
 
-get_recall <- function(data, match_treshold, colname){
+get_recall <- function(data, match_threshold, colname){
   # calculate precision based on number of columns which comply with characteristic of true positive, true negative etc.
   # column name in filter() needs to be unquoted using UQ(as.symbol()) due to the dplyr semantics (https://stackoverflow.com/questions/27197617/filter-data-frame-by-character-column-name-in-dplyr)
-  # True positive = given comparison is above match treshold and also DOI's match
-  TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= match_treshold) %>% nrow()
-  # False negative = according to DOI, these are same documents, but value resulting from comparison did NOT reach treshold to classify as TP
-  FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > match_treshold) %>% nrow()
+  # True positive = given comparison is above match threshold and also DOI's match
+  TP <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) <= match_threshold) %>% nrow()
+  # False negative = according to DOI, these are same documents, but value resulting from comparison did NOT reach threshold to classify as TP
+  FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > match_threshold) %>% nrow()
   return(TP/(TP+FN))
 }
 
@@ -43,10 +43,10 @@ get_f_beta_measure <- function(precision, recall, beta){
 
 
 generate_results <- function(data, colname, exploratory=FALSE){
-  # Generates table of with values of precision and recall for given match treshold. Set exploratory=TRUE to generate shortened version straight into memory
+  # Generates table of with values of precision and recall for given match threshold. Set exploratory=TRUE to generate shortened version straight into memory
   gc(full=TRUE)
   results <- data.frame(
-    "Treshold" = double(),
+    "Threshold" = double(),
     "Precision" = double(),
     "Recall" = double()
   )
@@ -60,7 +60,7 @@ generate_results <- function(data, colname, exploratory=FALSE){
       
       
       results <- rbind(results, data.frame(
-        "Treshold" = x,
+        "Threshold" = x,
         "Precision" = TP/(TP+FP),
         "Recall" = TP/(TP+FN),
         "Fmeasure" = get_fmeasure(TP/(TP+FP), TP/(TP+FN)),
@@ -83,7 +83,7 @@ generate_results <- function(data, colname, exploratory=FALSE){
     FN <- data %>% filter(DOI1==DOI2) %>% filter(UQ(as.symbol(colname)) > x) %>% nrow()
     
     results <- rbind(results, data.frame(
-      "Treshold" = x,
+      "Threshold" = x,
       "Precision" = TP/(TP+FP),
       "Recall" = TP/(TP+FN),
       "Fmeasure" = get_fmeasure(TP/(TP+FP), TP/(TP+FN)),

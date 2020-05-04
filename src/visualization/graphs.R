@@ -30,7 +30,7 @@ show_perfomance_metrics_line <- function(year, graph_title="Precision-Recall cur
 }
 
 
-show_fmeasure_treshold <- function(year, graph_title="F-Measure plot"){
+show_fmeasure_threshold <- function(year, graph_title="F-Measure plot"){
   # Show exact precision-recall graph comparing metrics within years specified in year parameter (Line connectting each observation)
   print("Begin results generation.")
   data_lv <- generate_results_merge("lv", year, "TITLE")
@@ -50,15 +50,15 @@ show_fmeasure_treshold <- function(year, graph_title="F-Measure plot"){
   
   print("Results generation done, plotting graph")
   ggplot() + 
-    geom_line(aes(x=data_lv$Treshold, y=data_lv$Fmeasure, color="lv")) +
-    geom_line(aes(x=data_jaro$Treshold, y=data_jaro$Fmeasure, color="jaro")) +
-    geom_line(aes(x=data_jw$Treshold, y=data_jw$Fmeasure, color="jw")) +
-    geom_line(aes(x=data_cosine3$Treshold, y=data_cosine3$Fmeasure, color="cosine3")) +
-    geom_line(aes(x=data_cosine3$Treshold, y=data_cosine4$Fmeasure, color="cosine4")) +
-    geom_line(aes(x=data_jaccard3$Treshold, y=data_jaccard3$Fmeasure, color="jaccard3")) +
-    geom_line(aes(x=data_jaccard4$Treshold, y=data_jaccard4$Fmeasure, color="jaccard4")) +
+    geom_line(aes(x=data_lv$Threshold, y=data_lv$Fmeasure, color="lv")) +
+    geom_line(aes(x=data_jaro$Threshold, y=data_jaro$Fmeasure, color="jaro")) +
+    geom_line(aes(x=data_jw$Threshold, y=data_jw$Fmeasure, color="jw")) +
+    geom_line(aes(x=data_cosine3$Threshold, y=data_cosine3$Fmeasure, color="cosine3")) +
+    geom_line(aes(x=data_cosine3$Threshold, y=data_cosine4$Fmeasure, color="cosine4")) +
+    geom_line(aes(x=data_jaccard3$Threshold, y=data_jaccard3$Fmeasure, color="jaccard3")) +
+    geom_line(aes(x=data_jaccard4$Threshold, y=data_jaccard4$Fmeasure, color="jaccard4")) +
     labs(title=graph_title,
-         x="Treshold", y="F-Measure") 
+         x="Threshold", y="F-Measure") 
 }
 
 
@@ -68,7 +68,7 @@ draw_results_graph <- function(metric, year, graph_title="Precision-Recall curve
 
   ggplot(data) + 
     geom_line(aes(x=Recall, y=Precision)) +
-    geom_label_repel(aes(x=Recall, y=Precision,label=Treshold), data=data[seq(1, nrow(data), 100), ],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            box.padding   = 0.35, 
+    geom_label_repel(aes(x=Recall, y=Precision,label=Threshold), data=data[seq(1, nrow(data), 100), ],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            box.padding   = 0.35, 
                      point.padding = 0.5,
                      segment.color = 'grey50')+
     labs(title=graph_title,
