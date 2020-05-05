@@ -12,13 +12,13 @@ The results are available here:
 https://doi.org/10.5281/zenodo.3785363
 
 
-## Script description:
+# Script description:
 
 To sum up entire process, the script loads all necessary data and generates pairs for matching. For each such pair a string distance for each paired column is calculated. Pairs that contain DOI identifiers are saved into training data. Based on comparison of DOI identifiers and specific threshold value we can then classify these pairs as true positive, true negative, false positive or false negative matches. With these values it is possible to determine precision, recall and F-measure on each treshold and determine optimal threshold for matching data without the identifiers with minimal unwanted results.
 
-The entire process is divided into 3 main stages:
+The entire process is divided into 4 main stages:
 
-#### 1) Preparation
+## Preparation
 
 This section provides a script for loading the original .csv file (not available due to copyright and legal restrictions) and splitting the data into 3 datasets based on publication record origin. 
 
@@ -44,7 +44,7 @@ rm(dataset_clean_human, dataset_raw, reclink_data, reclink_CROSSREF, envir = .Gl
 
 
 
-#### 2) Processing
+## Processing
 
 This is where most of the magic happens. This folder contains main script for generating string distances, standardization and some utilities for general data wrangling. Script at metric-test/src/rlink.R can also be used to get all the raw string distances generated in one go.
 
@@ -88,8 +88,8 @@ Each pair generated has the DOI pairs compared. Based on whether DOI's match and
 distance was lower than threshold, the pair does not contain same publications and it is therefore false positive. 
 Generated data is saved into .csv data for further processing and visualisation.
 
-#### 3) Visualization
+## Visualization
 This section contains mainly scripts for visualizing data and/or scripts used to create the graphs in the thesis. /src/visualization/prep_env.R can be used to quickly setup work environment and scripts with graph_ prefix to visualise data
 
-#### 4) Validation 
+## Validation 
 Provides convenience scripts for quickly creating test samples for manual validation and script used to help with the evaluation itself
