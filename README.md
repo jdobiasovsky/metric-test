@@ -5,7 +5,7 @@ Thesis citation:
 DOBIÁŠOVSKÝ, Jan. Approximate equality of character strings and its application to record linkage in metadata of scientific publications [online]. Praha, 2020 [cit. 2020-05-04]. Masters thesis. Charles University. Faculty of Arts. Institute of Information Studies and Librarianship.
 
 You can view the thesis here:
-#TODO add link to repository once published
+https://dspace.cuni.cz/handle/20.500.11956/118610
 
 
 The results are available here:
